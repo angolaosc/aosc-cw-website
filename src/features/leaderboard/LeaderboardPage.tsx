@@ -78,61 +78,67 @@ export function LeaderboardPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="text-center mb-8 animate-fade-in">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4">
-          <span className="gradient-text">Leaderboard</span>
-        </h1>
-        <p className="text-muted-foreground max-w-xl mx-auto">
-          Top contributors ranked by merged pull requests
-        </p>
-      </div>
+      {/* Header with Dropdown */}
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-8 animate-fade-in">
+        <div>
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">
+            <span className="gradient-text">Leaderboard</span>
+          </h1>
+          <p className="text-muted-foreground">
+            Principais contribuidores classificados por pull requests fundidos
+          </p>
+          {currentLeaderboard && (
+            <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
+              <Calendar className="h-4 w-4" />
+              <span>
+                {format(new Date(currentLeaderboard.start_date), "MMM d, yyyy")} -{" "}
+                {format(new Date(currentLeaderboard.end_date), "MMM d, yyyy")}
+              </span>
+            </div>
+          )}
+        </div>
 
-      {/* Leaderboard Selector */}
-      <div className="max-w-sm mx-auto mb-8">
-        <Select value={selectedLeaderboard} onValueChange={setSelectedLeaderboard}>
-          <SelectTrigger className="bg-secondary border-border">
-            <SelectValue placeholder="Select leaderboard" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Time</SelectItem>
-            {leaderboards?.map((lb) => (
-              <SelectItem key={lb.id} value={lb.id}>
-                {lb.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        {currentLeaderboard && (
-          <div className="mt-3 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-            <Calendar className="h-4 w-4" />
-            <span>
-              {format(new Date(currentLeaderboard.start_date), "MMM d, yyyy")} -{" "}
-              {format(new Date(currentLeaderboard.end_date), "MMM d, yyyy")}
-            </span>
-          </div>
-        )}
+        {/* Leaderboard Selector - Top Right */}
+        <div className="w-full md:w-64 shrink-0">
+          <Select value={selectedLeaderboard} onValueChange={setSelectedLeaderboard}>
+            <SelectTrigger className="bg-secondary border-border">
+              <SelectValue placeholder="Select leaderboard" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Todos os Tempos</SelectItem>
+              {leaderboards?.map((lb) => (
+                <SelectItem key={lb.id} value={lb.id}>
+                  {lb.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       {/* Leaderboard Table */}
-      <div className="max-w-2xl mx-auto">
-        {isLoading ? (
+      <div className="max-w-3xl mx-auto">
+        {isLoading && (
           <div className="space-y-3">
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="glass-card h-16 animate-pulse" />
+            {Array.from({ length: 5 }, (_, i) => (
+              <div key={`skeleton-${i}`} className="glass-card h-16 animate-pulse" />
             ))}
           </div>
-        ) : entries?.length === 0 ? (
+        )}
+
+        {!isLoading && entries?.length === 0 && (
           <div className="glass-card p-12 text-center">
             <GitPullRequest className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-medium mb-2">No contributions yet</h3>
+            <h3 className="text-lg font-medium mb-2">Ainda sem contribuições</h3>
             <p className="text-muted-foreground">
-              Be the first to contribute and appear on the leaderboard!
+              Seja o primeiro a contribuir e aparecer na Leaderboard!
             </p>
           </div>
-        ) : (
+        )}
+
+        {!isLoading && entries && entries.length > 0 && (
           <div className="space-y-3">
-            {entries?.map((entry, index) => (
+            {entries.map((entry, index) => (
               <Link
                 key={entry.user_id}
                 to={`/user/${entry.user_id}`}

@@ -86,14 +86,14 @@ export function ProfilePage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["profile", user?.id] });
       toast({
-        title: "Profile updated",
-        description: "Your profile has been saved successfully.",
+        title: "Perfil actualizado",
+        description: "O seu perfil foi guardado com sucesso.",
       });
     },
     onError: (error: Error) => {
       toast({
         variant: "destructive",
-        title: "Error",
+        title: "Erro",
         description: error.message,
       });
     },
@@ -133,16 +133,16 @@ export function ProfilePage() {
             )}
             <div>
               <h1 className="text-2xl font-bold">
-                {profile?.display_name || user?.user_metadata?.full_name || user?.user_metadata?.name || "Your Profile"}
+                {profile?.display_name || user?.user_metadata?.full_name || user?.user_metadata?.name || "O Seu Perfil"}
               </h1>
               <div className="flex items-center gap-2 text-sm">
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <Github className="h-4 w-4" />
-                  <span>@{profile?.github_username || user?.user_metadata?.user_name || user?.user_metadata?.preferred_username || "github-user"}</span>
+                  <span>@{profile?.github_username || user?.user_metadata?.user_name || user?.user_metadata?.preferred_username || "utilizador-github"}</span>
                 </div>
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <MapPin className="h-4 w-4" />
-                  <span>@{user?.user_metadata?.location || "unknown location"}</span>
+                  <span>@{user?.user_metadata?.location || "localização desconhecida"}</span>
                 </div>
               </div>
             </div>
@@ -153,14 +153,14 @@ export function ProfilePage() {
         <div className="glass-card p-6">
           <div className="flex items-center gap-2 mb-4">
             <GitPullRequest className="h-5 w-5 text-primary" />
-            <h2 className="text-xl font-semibold">Your Contributions</h2>
+            <h2 className="text-xl font-semibold">As Suas Contribuições</h2>
           </div>
 
           {contributions?.length === 0 ? (
             <div className="text-center py-8">
               <GitPullRequest className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
               <p className="text-muted-foreground">
-                No contributions yet. Start contributing to tracked projects!
+                Ainda sem contribuições. Comece a contribuir para projectos rastreados!
               </p>
             </div>
           ) : (

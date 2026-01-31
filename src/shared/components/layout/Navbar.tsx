@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/shared/components/ui/button";
-import { Trophy, FolderGit2, User, Shield, LogOut, Menu, X } from "lucide-react";
+import { Trophy, FolderGit2, User, Shield, LogOut, Menu, X, Home } from "lucide-react";
 import { useAuth } from "@/features/auth/useAuth";
 import { useState } from "react";
 
@@ -11,8 +11,9 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { href: "/", label: "Projectos", icon: FolderGit2 },
+    { href: "/", label: "Início", icon: Home },
     { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
+    { href: "/projects", label: "Projectos", icon: FolderGit2 },
   ];
 
   const handleSignOut = async () => {
@@ -73,13 +74,13 @@ export function Navbar() {
                 </Link>
                 <Button variant="ghost" onClick={handleSignOut} className="gap-2 text-muted-foreground hover:text-foreground">
                   <LogOut className="h-4 w-4" />
-                  Sign Out
+                  Sair
                 </Button>
               </>
             ) : (
               <Link to="/auth">
                 <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  Login
+                  Entrar
                 </Button>
               </Link>
             )}
@@ -133,18 +134,18 @@ export function Navbar() {
                   <Link to="/profile" onClick={() => setMobileMenuOpen(false)}>
                     <Button variant="ghost" className="w-full justify-start gap-2 text-muted-foreground hover:text-foreground">
                       <User className="h-4 w-4" />
-                      Profile
+                      Perfil
                     </Button>
                   </Link>
                   <Button variant="ghost" onClick={handleSignOut} className="w-full justify-start gap-2 text-muted-foreground hover:text-foreground">
                     <LogOut className="h-4 w-4" />
-                    Sign Out
+                    Sair
                   </Button>
                 </>
               ) : (
                 <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>
                   <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                    Sign In
+                    Entrar
                   </Button>
                 </Link>
               )}

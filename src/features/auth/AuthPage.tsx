@@ -21,14 +21,14 @@ export function AuthPage() {
       if (error) {
         toast({
           variant: "destructive",
-          title: "Error",
+          title: "Erro",
           description: error.message,
         });
       } else {
         // OAuth redirect will handle navigation
         toast({
-          title: "Redirecting...",
-          description: "Taking you to GitHub to sign in.",
+          title: "A redirecionar...",
+          description: "A levá-lo para o GitHub para entrar.",
         });
       }
     } finally {
@@ -50,7 +50,7 @@ export function AuthPage() {
             Bem-vindo
           </h1>
           <p className="text-muted-foreground text-center mb-8">
-            Sign in with GitHub to track your contributions
+            Entre com o GitHub para acompanhar as suas contribuições
           </p>
 
           <Button
@@ -59,7 +59,7 @@ export function AuthPage() {
             disabled={loading}
           >
             <Github className="h-4 w-4" />
-            {loading ? "Connecting..." : "Continue with GitHub"}
+            {loading ? "A conectar..." : "Continuar com GitHub"}
           </Button>
         </div>
       </div>

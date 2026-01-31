@@ -67,7 +67,7 @@ export function AdminPage() {
     mutationFn: async () => {
       // Parse GitHub URL
       const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
-      if (!match) throw new Error("Invalid GitHub URL");
+      if (!match) throw new Error("URL do GitHub inválido");
 
       const [, owner, repo] = match;
       const labelsArray = labels
@@ -92,7 +92,7 @@ export function AdminPage() {
       setRepoUrl("");
       setLabels("");
       setDescription("");
-      toast({ title: "Project added successfully" });
+      toast({ title: "Projecto adicionado com sucesso" });
     },
     onError: (error: Error) => {
       toast({
@@ -111,7 +111,7 @@ export function AdminPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-projects"] });
       queryClient.invalidateQueries({ queryKey: ["projects"] });
-      toast({ title: "Project deleted" });
+      toast({ title: "Projecto eliminado" });
     },
   });
 
@@ -134,12 +134,12 @@ export function AdminPage() {
       setLbDescription("");
       setLbStartDate("");
       setLbEndDate("");
-      toast({ title: "Leaderboard created successfully" });
+      toast({ title: "Leaderboard criada com sucesso" });
     },
     onError: (error: Error) => {
       toast({
         variant: "destructive",
-        title: "Error",
+        title: "Erro",
         description: error.message,
       });
     },
@@ -168,7 +168,7 @@ export function AdminPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-leaderboards"] });
       queryClient.invalidateQueries({ queryKey: ["leaderboards"] });
-      toast({ title: "Leaderboard deleted" });
+      toast({ title: "Leaderboard eliminada" });
     },
   });
 
@@ -187,24 +187,24 @@ export function AdminPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto animate-fade-in">
-        <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+        <h1 className="text-3xl font-bold mb-6">Painel de Administração</h1>
 
         <Tabs defaultValue="projects" className="space-y-6">
           <TabsList className="bg-secondary">
             <TabsTrigger value="projects" className="gap-2">
               <FolderGit2 className="h-4 w-4" />
-              Projects
+              Projectos
             </TabsTrigger>
             <TabsTrigger value="leaderboards" className="gap-2">
               <Trophy className="h-4 w-4" />
-              Leaderboards
+              Classificações
             </TabsTrigger>
           </TabsList>
 
           {/* Projects Tab */}
           <TabsContent value="projects" className="space-y-6">
             <div className="glass-card p-6">
-              <h2 className="text-xl font-semibold mb-4">Add Project</h2>
+              <h2 className="text-xl font-semibold mb-4">Adicionar Projecto</h2>
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -213,7 +213,7 @@ export function AdminPage() {
                 className="space-y-4"
               >
                 <div className="space-y-2">
-                  <Label htmlFor="repoUrl">GitHub Repository URL</Label>
+                  <Label htmlFor="repoUrl">URL do Repositório GitHub</Label>
                   <Input
                     id="repoUrl"
                     value={repoUrl}
@@ -225,7 +225,7 @@ export function AdminPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="labels">Labels (comma-separated)</Label>
+                  <Label htmlFor="labels">Etiquetas (separadas por vírgula)</Label>
                   <Input
                     id="labels"
                     value={labels}
@@ -236,12 +236,12 @@ export function AdminPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="description">Description</Label>
+                  <Label htmlFor="description">Descrição</Label>
                   <Textarea
                     id="description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Brief description of the project..."
+                    placeholder="Breve descrição do projecto..."
                     className="bg-secondary border-border"
                   />
                 </div>
@@ -252,7 +252,7 @@ export function AdminPage() {
                   className="gap-2"
                 >
                   <Plus className="h-4 w-4" />
-                  {addProject.isPending ? "Adding..." : "Add Project"}
+                  {addProject.isPending ? "A adicionar..." : "Adicionar Projecto"}
                 </Button>
               </form>
             </div>
@@ -309,7 +309,7 @@ export function AdminPage() {
           {/* Leaderboards Tab */}
           <TabsContent value="leaderboards" className="space-y-6">
             <div className="glass-card p-6">
-              <h2 className="text-xl font-semibold mb-4">Create Leaderboard</h2>
+              <h2 className="text-xl font-semibold mb-4">Criar Leaderboard</h2>
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -318,7 +318,7 @@ export function AdminPage() {
                 className="space-y-4"
               >
                 <div className="space-y-2">
-                  <Label htmlFor="lbName">Name</Label>
+                  <Label htmlFor="lbName">Nome</Label>
                   <Input
                     id="lbName"
                     value={lbName}
@@ -330,19 +330,19 @@ export function AdminPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="lbDescription">Description</Label>
+                  <Label htmlFor="lbDescription">Descrição</Label>
                   <Textarea
                     id="lbDescription"
                     value={lbDescription}
                     onChange={(e) => setLbDescription(e.target.value)}
-                    placeholder="Description of this leaderboard..."
+                    placeholder="Descrição desta Leaderboard..."
                     className="bg-secondary border-border"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="lbStartDate">Start Date</Label>
+                    <Label htmlFor="lbStartDate">Data de Início</Label>
                     <Input
                       id="lbStartDate"
                       type="date"
@@ -353,7 +353,7 @@ export function AdminPage() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="lbEndDate">End Date</Label>
+                    <Label htmlFor="lbEndDate">Data de Fim</Label>
                     <Input
                       id="lbEndDate"
                       type="date"
@@ -371,16 +371,16 @@ export function AdminPage() {
                   className="gap-2"
                 >
                   <Plus className="h-4 w-4" />
-                  {addLeaderboard.isPending ? "Creating..." : "Create Leaderboard"}
+                  {addLeaderboard.isPending ? "A criar..." : "Criar Leaderboard"}
                 </Button>
               </form>
             </div>
 
             <div className="glass-card p-6">
-              <h2 className="text-xl font-semibold mb-4">Manage Leaderboards</h2>
+              <h2 className="text-xl font-semibold mb-4">Gerir Classificações</h2>
               {leaderboards?.length === 0 ? (
                 <p className="text-muted-foreground text-center py-8">
-                  No leaderboards created yet
+                  Nenhuma Leaderboard criada ainda
                 </p>
               ) : (
                 <div className="space-y-3">
@@ -399,7 +399,7 @@ export function AdminPage() {
                                 : "bg-muted text-muted-foreground"
                             }`}
                           >
-                            {lb.is_active ? "Active" : "Inactive"}
+                            {lb.is_active ? "Activo" : "Inactivo"}
                           </span>
                         </div>
                         <div className="flex items-center gap-1 text-sm text-muted-foreground mt-1">
@@ -419,7 +419,7 @@ export function AdminPage() {
                             })
                           }
                         >
-                          {lb.is_active ? "Deactivate" : "Activate"}
+                          {lb.is_active ? "Desactivar" : "Activar"}
                         </Button>
                         <Button
                           variant="ghost"

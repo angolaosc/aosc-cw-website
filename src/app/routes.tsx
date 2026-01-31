@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import Index from "@/features/projects/ProjectsPage";
+import LandingPage from "@/features/landing/LandingPage";
+import ProjectsPage from "@/features/projects/ProjectsPage";
 import { LeaderboardPage } from "@/features/leaderboard/LeaderboardPage";
 import { AuthPage } from "@/features/auth/AuthPage";
 import { ProfilePage } from "@/features/profile/ProfilePage";
@@ -9,7 +10,8 @@ import NotFound from "@/shared/pages/NotFound";
 
 export const AppRoutes = () => (
   <Routes>
-    <Route path="/" element={<Index />} />
+    <Route path="/" element={<LandingPage />} />
+    <Route path="/projects" element={<ProjectsPage />} />
     <Route path="/leaderboard" element={<LeaderboardPage />} />
     <Route path="/auth" element={<AuthPage />} />
     <Route path="/profile" element={<ProfilePage />} />
